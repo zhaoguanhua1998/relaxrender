@@ -1,12 +1,13 @@
 import numpy as np
 
+
 class Color:
-    supported_color_space = {'RGB':0.0,
-                             'RGBA':1.0,
-                             'place_holder':100.0}
+    supported_color_space = {'RGB': 0.0,
+                             'RGBA': 1.0,
+                             'place_holder': 100.0}
 
     data_width = 5
-    
+
     def __init__(self, mode, v1, v2, v3, v4):
         if mode in Color.supported_color_space:
             self.mode = mode
@@ -32,10 +33,10 @@ class Color:
     def place_holder(cls):
         return cls('place_holder', 0.0, 0.0, 0.0, 0.0)
 
+
 White = Color('RGB', 1, 1, 1, -1)
 Black = Color('RGB', 0, 0, 0, -1)
 Red = Color('RGB', 1, 0, 0, -1)
 Green = Color('RGB', 0, 1, 0, -1)
 Blue = Color('RGB', 0, 0, 1, -1)
 Grey = Color('RGB', 0.5, 0.5, 0.5, -1)
-
