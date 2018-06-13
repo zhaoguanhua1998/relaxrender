@@ -5,6 +5,7 @@ from .triangle import Triangles
 
 __all__ = ['Mesh']
 
+
 class Mesh:
     def __init__(self, triangles=None, texs=None, tex_pos=None):
         self.triangles = triangles
@@ -13,4 +14,3 @@ class Mesh:
 
     def verify(self):
         pass
-        
