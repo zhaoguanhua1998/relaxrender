@@ -2,7 +2,6 @@ import math
 import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
-from skimage.draw import line
 
 from relaxrender.LineDictionary import LineDictionary  # 导入角度-？字典
 
@@ -44,20 +43,7 @@ def LineKernel(dim, angle, linetype):
     kernelwidth = dim  # 核的宽度
     kernelCenter = int(math.floor(dim / 2))  # 核的中心
     angle = SanitizeAngleValue(kernelCenter, angle)  # 运动线的角度。将被定位到与给定内核大小相关的最近的一个。
-    kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)  # 卷积核是一个kernelwidth*kernelwidth的矩阵
-    lineAnchors = lineDict.lines[dim][angle]  # 在lineDict字典中找对应的锚点
-    # print(lineAnchors)
-    if (linetype == 'right'):
-        lineAnchors[0] = kernelCenter
-        lineAnchors[1] = kernelCenter
-    if (linetype == 'left'):
-        lineAnchors[2] = kernelCenter
-        lineAnchors[3] = kernelCenter
-    # 使用line函数话直线，四个参数分别代表开始点的行数，开始点的列数，结束点的行数，结束点的列数
-    # 返回线上所有像素点的坐标[rr,cc]
-    rr, cc = line(lineAnchors[0], lineAnchors[1], lineAnchors[2], lineAnchors[3])
-    print(rr)
-    kernel[rr, cc] = 1  # 把核矩阵中相应位置的元素置1
+    kernel=lineDict.Createkernel(dim,angle)
     normalizationFactor = np.count_nonzero(kernel)  # 返回kernel中非0元素的个数
     kernel = kernel / normalizationFactor  # 归一化
     return kernel
