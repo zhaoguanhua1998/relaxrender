@@ -25,7 +25,7 @@ class TestMotionBlur(unittest.TestCase):
                                                  filename=self.filename)
 
     def test_LineKernel(self):
-        pass
+       self.linear_motion_blur.LineKernel(dim=self.dim,angle=self.angle)
 
     def test_sanitize_angleValue(self):
         self.linear_motion_blur.sanitize_angleValue(kernelCenter = self.kernelCenter, angle = self.angle)
