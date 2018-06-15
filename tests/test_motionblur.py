@@ -34,7 +34,7 @@ class TestMotionBlur(unittest.TestCase):
         pass
 
     def test_randomAngle(self):
-        pass
+        self.linear_motion_blur.randomAngle(kerneldim=self.dim)
 
 
 def runTest():
