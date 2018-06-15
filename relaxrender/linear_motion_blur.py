@@ -1,7 +1,7 @@
 import math
 import numpy as np
-from PIL import Image
 from scipy.signal import convolve2d
+import imageio
 
 from relaxrender.LineDictionary import LineDictionary  # 导入{角度-核矩阵}的字典
 
@@ -20,10 +20,11 @@ def LinearMotionBlur_random(img):
     return LinearMotionBlur(img, lineLength, lineAngle)
 
 
-def LinearMotionBlur(img, dim, angle, area=None):
+def LinearMotionBlur(img, dim, angle, area=None, filename='picture_blur.jpg'):
     """
     依据参数进行运动模糊
-    img为由PIL库导入的图片，dim为卷积核的宽度，angle为模糊方向，area为矩形模糊区域(包含四个元素的元组)
+    img为由PIL库导入的图片，dim为卷积核的宽度，angle为模糊方向，area为矩形模糊区域(包含四个元素的元组，默认为全图模糊)
+    filename为导出的图片文件名(默认为'picture_blur.jpg'，导出到当前文件夹)
     """
     imgarray = np.array(img, dtype="float32")  # 将图片转换为数组
     imgshape = imgarray.shape
@@ -38,8 +39,9 @@ def LinearMotionBlur(img, dim, angle, area=None):
         img_conv_d = convolve2d(imgarray[r1:r2, c1:c2, d], kernel, mode='same', boundary='symm')
         imgarray[r1:r2, c1:c2, d] = img_conv_d  # 将区域中的原像素值替换为卷积后的像素值
     imgarray = imgarray.astype("uint8")
-    img = Image.fromarray(imgarray)  # 将数组转换回图片
-    return img
+    imageio.imwrite(filename, imgarray)  # 输出图片到指定文件
+    img_blur = imageio.imread(filename)  # 返回模糊后的图片
+    return img_blur
 
 
 def LineKernel(dim, angle):
