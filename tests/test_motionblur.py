@@ -28,7 +28,7 @@ class TestMotionBlur(unittest.TestCase):
         pass
 
     def test_sanitize_angleValue(self):
-        pass
+        self.linear_motion_blur.sanitize_angleValue(kernelCenter = self.kernelCenter, angle = self.angle)
 
     def test_nearestValue(self):
         self.linear_motion_blur.nearestValue(theta=np.random.randint(0,180,1),validAngles=np.linspace(0,180,4,endpoint=False))
