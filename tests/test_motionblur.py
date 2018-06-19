@@ -25,13 +25,14 @@ class TestMotionBlur(unittest.TestCase):
                                                  filename=self.filename)
 
     def test_LineKernel(self):
-        pass
+        self.linear_motion_blur.LineKernel(dim=self.dim, angle=self.angle)
 
     def test_sanitize_angleValue(self):
-        pass
+        self.linear_motion_blur.sanitize_angleValue(kernelCenter=self.kernelCenter, angle=self.angle)
 
     def test_nearestValue(self):
-        pass
+        self.linear_motion_blur.nearestValue(theta=np.random.randint(0, 180, 1),
+                                             validAngles=np.linspace(0, 180, 4, endpoint=False))
 
     def test_randomAngle(self):
         self.linear_motion_blur.randomAngle(kerneldim=self.dim)
